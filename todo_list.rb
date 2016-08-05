@@ -1,5 +1,3 @@
-require 'pry'
-
 class TodoList
   attr_accessor :title
 
@@ -66,9 +64,9 @@ class TodoList
   end
 
   def to_s
-    puts self.title.center(30, '-')
-
-    @todos.each { |todo| puts todo }
+    text = "---- #{title} ----\n"
+    text << @todos.map(&:to_s).join("\n")
+    text
   end
 
   def each
@@ -102,6 +100,10 @@ class TodoList
   def all_not_done
     select { |todo| !todo.done? }
   end
+
+  def done?
+    all_done.size == self.size
+  end
 end
 
 class Todo
@@ -130,17 +132,3 @@ class Todo
     "[#{done? ? DONE_MARKER : UNDONE_MARKER}] #{title}"
   end
 end
-
-todo1 = Todo.new("Buy milk")
-todo2 = Todo.new("Clean room")
-todo3 = Todo.new("Go to gym")
-todo4 = Todo.new("Foo Bar")
-list = TodoList.new("Today's Todos")
-
-list.add(todo1)                 # adds todo1 to end of list, returns list
-list.add(todo2)                 # adds todo2 to end of list, returns list
-list.add(todo3)                 # adds todo3 to end of list, returns list
-list.add(todo4)                 # adds todo3 to end of list, returns list
-
-list.to_s
-binding.pry
