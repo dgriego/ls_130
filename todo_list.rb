@@ -83,6 +83,7 @@ class TodoList
     list = TodoList.new(title)
 
     each do |todo|
+      binding.pry
       list.add(todo) if yield(todo)
     end
 
@@ -132,3 +133,11 @@ class Todo
     "[#{done? ? DONE_MARKER : UNDONE_MARKER}] #{title}"
   end
 end
+
+todo1 = Todo.new('get Milk')
+todo2 = Todo.new('get cheese')
+todo3 = Todo.new('get bread')
+list = TodoList.new('Groceries')
+list << todo1
+list << todo2
+list << todo3
